@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-env-from-configmap
+spec:
+  containers:
+  - image: luksa/fortune:env
+    env:                         
+    # set the env var called internal    
+    - name: INTERVAL                 
+      valueFrom:                     
+        configMapKeyRef:             
+        # name of configmap referenced
+          name: fortune-config       
+        # set INERVAL var to whatever is stored in this key
+          key: sleep-interval        
+# How to pass all entries of a configmap as env var at once
+#    envFrom:
+#    - prefix: CONFIG_
+#      configMapRef:
+#       name: my-config-map    

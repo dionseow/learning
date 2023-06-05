@@ -1,0 +1,16 @@
+apiVersion: v1
+# Describing a pod
+kind: Pod
+metadata:
+# Name of the pod
+  name: kubia-manual
+spec:
+  containers:
+  # Container image to create the container from
+    - image: luksa/kubia
+    # Name of the container
+      name: kubia
+      ports:
+      # Port the app is listening on
+      - containerPort: 8080
+        protocol: TCP

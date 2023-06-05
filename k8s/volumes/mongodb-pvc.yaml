@@ -1,0 +1,14 @@
+# A pod is unable to use a PV directly
+# You would need to create a PV claim to use a PV
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+# Name of the claim, need this later when using the claim as the pod's volume
+  name: mongodb-pvc              
+spec:
+  resources:
+    requests:                    
+      storage: 1Gi               
+  accessModes:                   
+  - ReadWriteOnce                
+  storageClassName: ""           

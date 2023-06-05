@@ -1,0 +1,11 @@
+kind: Pod
+spec:
+ containers:
+ - image: luksa/fortune:env
+ # Pass env var to script through container definition
+  env:
+  - name: FIRST_VAR
+    value: "foo"
+  - name: SECOND_VAR
+    value: "$(FIRST_VAR)bar"                  
+   name: html-generator

@@ -1,0 +1,25 @@
+# Create a pod using gcePersistentDisk volume
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb
+spec:
+  volumes:
+  # The name of the volume (also referenced when mounting the volume)
+  - name: mongodb-data           
+  # The type of the volume is a GCE Persistent Disk.
+    gcePersistentDisk:    
+  # The name of the persistent disk must match the actual PD you created in gce       
+      pdName: mongodb            
+      fsType: ext4               
+  containers:
+  - image: mongo
+    name: mongodb
+    volumeMounts:
+    # Referencing the volume created above
+    - name: mongodb-data        
+    # The path where MongoDB stores its data 
+      mountPath: /data/db        
+    ports:
+    - containerPort: 27017
+      protocol: TCP

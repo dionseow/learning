@@ -1,0 +1,25 @@
+# Create a PV backed by a GCE Persistent Disk
+# Then claim the PV and use it inside a pod
+#
+# Why? Because users should not be concerned about the underlying
+# infra of the Persistent Disk, only how to use it
+# PVs are a logical construct to separate phy infra from how it's used 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+# Define the PV size
+  capacity:                                 
+    storage: 1Gi    
+  # Allow mounting by a single client for R/W
+  # Or by multiple clients for R                        
+  accessModes:                              
+  - ReadWriteOnce                           
+  - ReadOnlyMany                
+  # After claim is released, PV should not be erased or deleted            
+  persistentVolumeReclaimPolicy: Retain     
+  # PV is backed by GCE PD created earlier
+  gcePersistentDisk:                        
+    pdName: mongodb                         
+    fsType: ext4                            
